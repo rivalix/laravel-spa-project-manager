@@ -6,7 +6,8 @@ Aplicación SPA para la Gestion de Proyectos
   - Laravel Sanctum
 - GraphQL
 - VueJS
+- Tailwind CSS
 
 ## Licencia
 
-Contenido desarrollodo por Raúl Alvarez [Canal de YouTube: Wanna Code](https://www.youtube.com/channel/UCgr-JUX8LqIFYZTMDn6zn9w).
+Contenido desarrollado por Raúl Alvarez para el [Canal de YouTube: Wanna Code](https://www.youtube.com/channel/UCgr-JUX8LqIFYZTMDn6zn9w).
