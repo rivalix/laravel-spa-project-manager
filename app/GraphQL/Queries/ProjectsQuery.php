@@ -2,6 +2,7 @@
 
 
 namespace App\GraphQL\Queries;
+
 use App\Models\Project;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
@@ -30,7 +31,7 @@ class ProjectsQuery extends Query
 
     public function resolve($root, $args)
     {
-        if(isset($args['projectId'])) {
+        if (isset($args['projectId'])) {
             return Project::where('id', $args['projectId'])->get();
         }
         return Project::all();

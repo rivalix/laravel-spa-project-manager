@@ -17,14 +17,10 @@ export default {
     },
     created() {
         axios.post('/graphql', {
-            query: `{
-                projects(projectId: ${this.$route.params.id})
-                    {
-                        id,
-                        title,
-                        description
-                    }
-                }`
+            query: this.$apiQueries.singleProject,
+            variables: {
+                projectId: parseInt(this.$route.params.id)
+            }
         }).then(res => {
             this.project = res.data.data.projects[0];
         })
