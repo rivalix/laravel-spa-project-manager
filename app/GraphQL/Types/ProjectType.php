@@ -1,10 +1,10 @@
 <?php
 
-
 namespace App\GraphQL\Types;
 
 use App\Models\Project;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class ProjectType extends GraphQLType
@@ -30,14 +30,15 @@ class ProjectType extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The Project description'
             ],
-//            'manager' => [
-//                'type' => Type::nonNull(Type::int()),
-//                'description' => 'The Project description'
-//            ],
-//            'tasks' => [
-//                'type' => Type::nonNull(Type::int()),
-//                'description' => 'The Project Id'
-//            ],
+            'manager' => [
+                'type' => Type::nonNull(GraphQL::type('user')),
+            ],
+            'tasks' => [
+                'type' => Type::listOf(GraphQL::type('task')),
+            ],
+            'users' => [
+                'type' => Type::listOf(GraphQL::type('user')),
+            ],
         ];
     }
 
