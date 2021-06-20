@@ -1,15 +1,15 @@
 <template>
     <div class="grid-cols-12 gap-4">
-        <project-card :project="project"></project-card>
+        <single-project-card :project="project"></single-project-card>
     </div>
 </template>
 
 <script>
-import ProjectCard from "../ProjectCard";
 import axios from "axios";
+import SingleProjectCard from "../SingleProjectCard";
 
 export default {
-    components: {ProjectCard},
+    components: {SingleProjectCard},
     data() {
         return {
             project: {}
