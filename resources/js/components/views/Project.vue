@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import SingleProjectCard from "../SingleProjectCard";
 
 export default {
@@ -16,11 +15,8 @@ export default {
         }
     },
     created() {
-        axios.post('/graphql', {
-            query: this.$apiQueries.singleProject,
-            variables: {
+        this.$query('singleProject',{
                 projectId: parseInt(this.$route.params.id)
-            }
         }).then(res => {
             this.project = res.data.data.projects[0];
         })

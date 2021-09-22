@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import ProjectCard from "../ProjectCard";
 export default {
     components: {ProjectCard},
@@ -17,9 +16,7 @@ export default {
         }
     },
     created() {
-       axios.post('/graphql', {
-           query: this.$apiQueries.dashboard
-       }).then(res => {
+        this.$query('dashboard').then(res => {
            this.projects = res.data.data.projects;
        })
     }
