@@ -2018,9 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ProjectCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ProjectCard */ "./resources/js/components/ProjectCard.vue");
+/* harmony import */ var _ProjectCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ProjectCard */ "./resources/js/components/ProjectCard.vue");
 //
 //
 //
@@ -2029,11 +2027,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    ProjectCard: _ProjectCard__WEBPACK_IMPORTED_MODULE_1__.default
+    ProjectCard: _ProjectCard__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
@@ -2114,10 +2111,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitForm: function submitForm() {
+      var _this = this;
+
       this.$query('login', {
         email: this.email,
         password: this.password
-      }).then(function (res) {});
+      }).then(function (res) {
+        var token = res.data.data.login;
+
+        if (token) {
+          sessionStorage.setItem('api-token', token);
+
+          _this.$router.push('/');
+        } else {
+          _this.errorMessages = 'Invalid Credentials Provided';
+        }
+      });
     }
   }
 });
@@ -2135,20 +2144,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _SingleProjectCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../SingleProjectCard */ "./resources/js/components/SingleProjectCard.vue");
+/* harmony import */ var _SingleProjectCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../SingleProjectCard */ "./resources/js/components/SingleProjectCard.vue");
 //
 //
 //
 //
 //
 //
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    SingleProjectCard: _SingleProjectCard__WEBPACK_IMPORTED_MODULE_1__.default
+    SingleProjectCard: _SingleProjectCard__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
@@ -2248,7 +2254,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var queries = {
   dashboard: '{projects{id,title,description,manager{id,name}}}',
-  singleProject: "query fetchSingleProject($projectId: Int){\n                    projects(projectId:$projectId) {\n                        id,\n                        title,\n                        description,\n                        manager {\n                            id,\n                            name\n                        },\n                        tasks {\n                            id,\n                            title,\n                            description,\n                            statusCode,\n                            user {\n                                name\n                            }\n                        }\n                    }\n                }"
+  singleProject: "query fetchSingleProject($projectId: Int){\n                    projects(projectId:$projectId) {\n                        id,\n                        title,\n                        description,\n                        manager {\n                            id,\n                            name\n                        },\n                        tasks {\n                            id,\n                            title,\n                            description,\n                            statusCode,\n                            user {\n                                name\n                            }\n                        }\n                    }\n                }",
+  login: "mutation LoginUser($email:String, $password:String) {\n        login(email: $email, password: $password)\n    }"
 };
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$query = function (queryName, queryVariables) {
@@ -2267,8 +2274,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$query = function (queryName,
 
   return axios__WEBPACK_IMPORTED_MODULE_0___default()(options);
 };
-
-vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$apiQueries = {};
 
 /***/ }),
 

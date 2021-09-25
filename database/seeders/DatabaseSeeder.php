@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@projctmanager.local',
+            'email' => 'superadmin@projectmanager.local',
             'password' => bcrypt('secret')
         ]);
         $user = User::create([
             'name' => 'Raul Alvarez',
-            'email' => 'raul@projctmanager.local',
+            'email' => 'raul@projectmanager.local',
             'password' => bcrypt('secret')
         ]);
 

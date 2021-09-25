@@ -22,7 +22,10 @@ let queries = {
                             }
                         }
                     }
-                }`
+                }`,
+    login: `mutation LoginUser($email:String, $password:String) {
+        login(email: $email, password: $password)
+    }`
 }
 
 Vue.prototype.$query = function (queryName, queryVariables) {
