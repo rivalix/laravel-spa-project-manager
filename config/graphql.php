@@ -106,11 +106,16 @@ return [
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
-                'login' => \App\GraphQL\Mutations\LoginMutation::class,
             ],
-            'middleware' => [],
+            'middleware' => ['auth:sanctum'],
             'method' => ['get', 'post'],
         ],
+        'guest' => [
+            'mutation' => [
+                // 'example_mutation'  => ExampleMutation::class,
+                'login' => \App\GraphQL\Mutations\LoginMutation::class,
+            ],
+        ]
     ],
 
     // The types available in the application. You can then access it from the

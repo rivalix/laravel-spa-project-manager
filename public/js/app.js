@@ -2101,6 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2257,10 +2258,23 @@ var queries = {
   singleProject: "query fetchSingleProject($projectId: Int){\n                    projects(projectId:$projectId) {\n                        id,\n                        title,\n                        description,\n                        manager {\n                            id,\n                            name\n                        },\n                        tasks {\n                            id,\n                            title,\n                            description,\n                            statusCode,\n                            user {\n                                name\n                            }\n                        }\n                    }\n                }",
   login: "mutation LoginUser($email:String, $password:String) {\n        login(email: $email, password: $password)\n    }"
 };
+var guestQueries = ['login'];
+
+function getApiUrl(queryName) {
+  var segment = '';
+
+  if (guestQueries.some(function (q) {
+    return q === queryName;
+  })) {
+    segment = '/guest';
+  }
+
+  return "/graphql".concat(segment);
+}
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$query = function (queryName, queryVariables) {
   var options = {
-    url: '/graphql',
+    url: getApiUrl(queryName),
     method: 'POST',
     data: {
       query: queries[queryName]
@@ -2271,6 +2285,14 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.prototype.$query = function (queryName,
     options.data.variables = queryVariables;
   } // TODO check-api-token
 
+
+  var token = sessionStorage.getItem('api-token');
+
+  if (token) {
+    options.headers = {
+      Authorization: "Bearer ".concat(token)
+    };
+  }
 
   return axios__WEBPACK_IMPORTED_MODULE_0___default()(options);
 };
@@ -21110,9 +21132,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("p", { staticClass: "text-center text-gray-500 text-xs" }, [
-        _vm._v(
-          "\n                ©2021 Wanna Code - Raúl Álvarez.\n                "
-        )
+        _vm._v("\n            ©2021 Wanna Code - Raúl Álvarez.\n        ")
       ])
     ])
   ])
@@ -21130,7 +21150,7 @@ var staticRenderFns = [
             "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none\n                focus:shadow-outline",
           attrs: { type: "submit" }
         },
-        [_vm._v("\n                Login\n            ")]
+        [_vm._v("\n                    Login\n                ")]
       )
     ])
   }
