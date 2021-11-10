@@ -2,6 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
+/**
+ * Este es un comentario
+ */
 use App\Models\User;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Facades\Hash;
@@ -40,4 +43,7 @@ class LoginMutation extends Mutation
 
         return $user->createToken('auth_token')->plainTextToken;
     }
+    /**
+     * Y este es otro comentario
+     */
 }
